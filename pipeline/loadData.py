@@ -70,6 +70,7 @@ execute_batch(cursor, """
 print("batch ended")
 
 
+
 conn.commit()
 print("✅ All data successfully migrated to PostgreSQL!")
 
