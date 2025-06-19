@@ -1,42 +1,7 @@
-version: 1
+version: 2
 
 sources:
   - name: public
     schema: public
     tables:
-      - name: data
-        description: >
-          Raw JSON ingestion table loaded from MongoDB via Airbyte. Each record contains deeply nested delivery data per driver.
-
-models:
-  - name: stg_drivers
-    description: "Contains basic information about each delivery driver, including their unique identifier and name."
-  - name: stg_dsps
-    description: "Represents Delivery Service Providers (DSPs) that employ or contract drivers. Includes DSP metadata such as name and operating region, along with the associated driver ID."
-  - name: stg_vehicles
-    description: "Stores information about vehicles assigned to drivers, including vehicle identifiers, make, model, and current mileage."
-  - name: stg_devices
-    description: "Captures details about mobile devices used by drivers, such as device model and operating system version."
-  - name: stg_employments
-    description: "Tracks employment details for each driver, including hire date and current employment status."
-  - name: stg_weekly_stats
-    description: "Weekly stats per driver"
-  - name: stg_daily_routes
-    description: "All daily routes per driver and week"
-  - name: stg_daily_safety
-    description: "Safety data per route"
-  - name: stg_stops
-    description: "Stop data including location and delivery counts"
-  - name: stg_packages
-    description: "Package-level info at each stop"
-  - name: stg_weekly_summary
-    description: "Weekly summary scores and performance feedback"
-
-  - name: dim_dates
-    description: "Date dimension table including calendar attributes like day of week, is_weekend, week_start, etc. Used for temporal analysis and joins."
-  - name: dim_driver_schedule
-    description: "Normalized driver route schedule table derived from actual route data. Contains one row per driver, route, and scheduled date."
-  - name: fct_inspection_summary
-    description: "Summarizes inspection results per vehicle per day. Includes counts of checklist items, failed checks, and failure rate metrics."
-  - name: fct_route_performance
-    description: "Fact table capturing daily route-level performance, including duration, delivery counts, and success rates. Joins driver, vehicle, and stop data."
+      - name: synthetic_data
