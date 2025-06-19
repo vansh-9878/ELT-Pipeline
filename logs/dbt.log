@@ -13,3 +13,47 @@ Runtime Error
 [0m14:02:58.373291 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000002747FB17E60>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000027401ECC9B0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000027402FCA630>]}
 [0m14:02:58.373291 [debug] [MainThread]: Flushing usage events
 [0m14:02:59.879990 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m12:08:38.475364 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000276B07E3DD0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000276B07E3DA0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000276B07E1F40>]}
+
+
+============================== 12:08:38.481034 | 27893207-0da7-4aac-a505-77767ca7a020 ==============================
+[0m12:08:38.481034 [info ] [MainThread]: Running with dbt=1.10.1
+[0m12:08:38.481034 [debug] [MainThread]: running dbt with arguments {'printer_width': '80', 'indirect_selection': 'eager', 'write_json': 'True', 'log_cache_events': 'False', 'partial_parse': 'True', 'cache_selected_only': 'False', 'warn_error': 'None', 'version_check': 'True', 'profiles_dir': 'C:\\Users\\Vansh\\.dbt', 'log_path': 'logs', 'fail_fast': 'False', 'debug': 'False', 'use_colors': 'True', 'use_experimental_parser': 'False', 'no_print': 'None', 'quiet': 'False', 'empty': 'False', 'log_format': 'default', 'introspect': 'True', 'invocation_command': 'dbt run --select staging', 'static_parser': 'True', 'target_path': 'None', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'send_anonymous_usage_stats': 'True'}
+[0m12:08:38.482394 [error] [MainThread]: Encountered an error:
+Runtime Error
+  No dbt_project.yml found at expected path C:\Users\Vansh\Machine Learning\dataChatbot\dbt_project.yml
+  Verify that each entry within packages.yml (and their transitive dependencies) contains a file named dbt_project.yml
+  
+[0m12:08:38.483712 [debug] [MainThread]: Command `dbt run` failed at 12:08:38.483712 after 0.14 seconds
+[0m12:08:38.483712 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000276B07C5D60>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000276AFF3AEA0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000276B090A600>]}
+[0m12:08:38.484718 [debug] [MainThread]: Flushing usage events
+[0m12:08:39.924954 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m13:04:22.684337 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000024ADB658C80>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000024ADE3DF260>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000024ADE3DE4B0>]}
+
+
+============================== 13:04:22.692340 | 6811e1a7-ed20-47f6-8935-42608fadc664 ==============================
+[0m13:04:22.692340 [info ] [MainThread]: Running with dbt=1.10.1
+[0m13:04:22.692340 [debug] [MainThread]: running dbt with arguments {'printer_width': '80', 'indirect_selection': 'eager', 'log_cache_events': 'False', 'write_json': 'True', 'partial_parse': 'True', 'cache_selected_only': 'False', 'profiles_dir': 'C:\\Users\\Vansh\\.dbt', 'version_check': 'True', 'warn_error': 'None', 'log_path': 'logs', 'debug': 'False', 'fail_fast': 'False', 'use_colors': 'True', 'use_experimental_parser': 'False', 'no_print': 'None', 'quiet': 'False', 'empty': 'False', 'log_format': 'default', 'introspect': 'True', 'static_parser': 'True', 'invocation_command': 'dbt run --select staging.attempts.sql', 'target_path': 'None', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'send_anonymous_usage_stats': 'True'}
+[0m13:04:22.693405 [error] [MainThread]: Encountered an error:
+Runtime Error
+  No dbt_project.yml found at expected path C:\Users\Vansh\Machine Learning\dataChatbot\dbt_project.yml
+  Verify that each entry within packages.yml (and their transitive dependencies) contains a file named dbt_project.yml
+  
+[0m13:04:22.694326 [debug] [MainThread]: Command `dbt run` failed at 13:04:22.694326 after 0.18 seconds
+[0m13:04:22.694326 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000024ADE2D6600>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000024ADE2D4BC0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000024ADE719F40>]}
+[0m13:04:22.694326 [debug] [MainThread]: Flushing usage events
+[0m13:04:28.981331 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001A77E19A630>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001A77B3FA480>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001A77E2DE930>]}
+
+
+============================== 13:04:28.989330 | f6d67ad3-d245-43af-b848-e8341325df98 ==============================
+[0m13:04:28.989330 [info ] [MainThread]: Running with dbt=1.10.1
+[0m13:04:28.989330 [debug] [MainThread]: running dbt with arguments {'printer_width': '80', 'indirect_selection': 'eager', 'log_cache_events': 'False', 'write_json': 'True', 'partial_parse': 'True', 'cache_selected_only': 'False', 'warn_error': 'None', 'debug': 'False', 'version_check': 'True', 'log_path': 'logs', 'profiles_dir': 'C:\\Users\\Vansh\\.dbt', 'fail_fast': 'False', 'use_colors': 'True', 'use_experimental_parser': 'False', 'no_print': 'None', 'quiet': 'False', 'empty': 'False', 'log_format': 'default', 'static_parser': 'True', 'invocation_command': 'dbt run --select staging.attempts', 'introspect': 'True', 'target_path': 'None', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'send_anonymous_usage_stats': 'True'}
+[0m13:04:28.990330 [error] [MainThread]: Encountered an error:
+Runtime Error
+  No dbt_project.yml found at expected path C:\Users\Vansh\Machine Learning\dataChatbot\dbt_project.yml
+  Verify that each entry within packages.yml (and their transitive dependencies) contains a file named dbt_project.yml
+  
+[0m13:04:28.991330 [debug] [MainThread]: Command `dbt run` failed at 13:04:28.991330 after 0.17 seconds
+[0m13:04:28.991330 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001A77E61A6C0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001A77E525220>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001A77DA671D0>]}
+[0m13:04:28.992330 [debug] [MainThread]: Flushing usage events
+[0m13:04:30.472368 [debug] [MainThread]: An error was encountered while trying to flush usage events

@@ -1,3 +1,5 @@
 amazon_dsp_driver_dataset_200_multiweek 1.json
 .env
-nested_data.json    
+/datasets
+/synthetic_data
+merged_logistics.json
