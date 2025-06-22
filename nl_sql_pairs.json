@@ -1,0 +1,42 @@
+[
+  {
+    "nl": "List all driver shifts scheduled for the next week",
+    "sql": "SELECT * FROM dim_driver_schedule WHERE calendar_date <= current_date + interval '7 days'"
+  },
+  {
+    "nl": "Show vehicles with failed inspection items",
+    "sql": "SELECT vehicle_id, COUNT(*) AS failed_checklist_items FROM inspection_checklist WHERE status != 'Pass' GROUP BY vehicle_id"
+  },
+  {
+    "nl": "What is the total maintenance cost per vehicle?",
+    "sql": "SELECT vehicle_id, SUM(task_cost) AS total_maintenance_cost FROM vehicle_maintenance_tasks GROUP BY vehicle_id"
+  },
+  {
+    "nl": "Which drivers are working on 2025-06-22?",
+    "sql": "SELECT driver_id, driver_name FROM dim_driver_schedule WHERE calendar_date = '2025-06-22'"
+  },
+  {
+    "nl": "Give me the number of stops per route",
+    "sql": "SELECT route_id, COUNT(DISTINCT stop_id) AS stop_count FROM fct_route_performance GROUP BY route_id"
+  },
+  {
+    "nl": "How many drivers does each company have?",
+    "sql": "SELECT company_id, COUNT(*) AS driver_count FROM drivers GROUP BY company_id"
+  },
+  {
+    "nl": "Show the inspection pass and fail count per vehicle per day",
+    "sql": "SELECT * FROM fct_inspection_summary"
+  },
+  {
+    "nl": "What are the exceptions in delivery attempts for each stop?",
+    "sql": "SELECT stop_id, status, exception_code, exception_reason FROM fct_route_performance WHERE exception_code IS NOT NULL"
+  },
+  {
+    "nl": "Total package delivery failures in the past week",
+    "sql": "SELECT COUNT(*) FROM fct_route_performance WHERE status = 'Exception' AND route_start_date >= current_date - 7"
+  },
+  {
+    "nl": "Which companies have the largest total package capacity?",
+    "sql": "SELECT company_id, SUM(capacity_packages) AS total_capacity_packages FROM vehicles GROUP BY company_id"
+  }
+]

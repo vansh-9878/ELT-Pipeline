@@ -6,15 +6,62 @@ from pathlib import Path
 
 fake = Faker()
 
-NUM_COMPANIES = 2
-NUM_VEHICLES_PER_COMPANY = 2
-NUM_DRIVERS_PER_COMPANY = 2
-NUM_ZONES = 3
-NUM_STOPS = 5
-NUM_INSPECTIONS = 4
+NUM_COMPANIES = 100
+NUM_VEHICLES_PER_COMPANY = 5
+NUM_DRIVERS_PER_COMPANY = 5
+NUM_ZONES = 15
+NUM_STOPS = 70
+NUM_INSPECTIONS = 40
 
 output_dir = Path("synthetic_data")
 output_dir.mkdir(exist_ok=True)
+
+
+item_definitions = {
+    "Brakes": [
+        {"code": "BRK01", "description": "Brake pad wear"},
+        {"code": "BRK02", "description": "Low brake fluid level"}
+    ],
+    "Lights": [
+        {"code": "LGT01", "description": "Left headlight out"},
+        {"code": "LGT02", "description": "Right taillight malfunction"}
+    ],
+    "Tires": [
+        {"code": "TIR01", "description": "Tire tread below limit"},
+        {"code": "TIR02", "description": "Tire pressure imbalance"}
+    ],
+    "Wipers": [
+        {"code": "WPR01", "description": "Wiper blade damage"},
+        {"code": "WPR02", "description": "Wipers leave streaks"}
+    ],
+    "Horn": [
+        {"code": "HRN01", "description": "Horn non-functional"}
+    ],
+    "Mirrors": [
+        {"code": "MRR01", "description": "Cracked mirror"},
+        {"code": "MRR02", "description": "Loose mirror housing"}
+    ]
+}
+
+# Notes for pass/fail
+pass_notes = {
+    "Brakes": "Brakes working normally, no issues found",
+    "Lights": "All lights functional",
+    "Tires": "Tires in good condition, pressure is optimal",
+    "Wipers": "Wipers operate smoothly with no streaks",
+    "Horn": "Horn sounds correctly",
+    "Mirrors": "Mirrors properly adjusted and intact"
+}
+
+fail_notes = {
+    "Brakes": "Brake performance poor, squealing noted",
+    "Lights": "One or more lights not working",
+    "Tires": "Uneven wear detected, pressure low",
+    "Wipers": "Blades worn out, streaking visible",
+    "Horn": "Horn not sounding when pressed",
+    "Mirrors": "Cracks or instability in one or more mirrors"
+}
+
 
 def generate_drivers(company_id, count, start_index=0):
     drivers = []
@@ -70,16 +117,19 @@ def generate_stops(count):
             "address": fake.address().replace("\n", ", "),
             "events": [
                 {"type": "arrival", "ts": fake.date_time_this_year().isoformat()},
-                {"type": "delivery_attempts", "attempts": [
+                {
+                "type": "delivery_attempts",
+                "attempts": [
                     {
                         "ts": fake.date_time_this_year().isoformat(),
-                        "status": "Delivered" if random.random() > 0.3 else "Exception",
-                        "exception": {
-                            "code": "NO_ACCESS",
-                            "reason": "Gate locked"
-                        } if random.random() < 0.5 else None
+                        "status": "Delivered" if random.random() > 0.4 else "Exception",
+                        "exception":  {
+                            "code": None if random.random() > 0.4 else "NO_ACCESS",
+                            "reason": None if random.random() > 0.4 else "Gate locked"
+                        }
                     }
-                ]}
+                ]
+            }
             ],
             "customer_callbacks": [
                 {
@@ -141,6 +191,21 @@ def generate_vehicles(company_id, driver_ids, stop_ids, start_index=0):
 def generate_inspections(vehicle_ids, count):
     inspections = []
     for i in range(count):
+        checklist = []
+        issues_found = []
+
+        for item, issues in item_definitions.items():
+            status = random.choice(["Pass", "Fail"])
+            entry = {
+                "item": item,
+                "status": status,
+                "notes": pass_notes[item] if status == "Pass" else fail_notes[item]
+            }
+
+            checklist.append(entry)
+            if status == "Fail":
+                selected_issue = random.choice(issues)
+                issues_found.append(selected_issue)
         inspections.append({
             "_id": f"insp_{1000+i}",
             "date": fake.date_this_year().isoformat(),
@@ -149,13 +214,8 @@ def generate_inspections(vehicle_ids, count):
                 "name": fake.name()
             },
             "vehicle_id": random.choice(vehicle_ids),
-            "checklist": [
-                {"item": "Brakes", "status": "Pass"},
-                {"item": "Lights", "status": "Fail", "notes": "Left headlight out"}
-            ],
-            "issues_found": [
-                {"code": "BRK01", "description": "Brake pad wear"}
-            ]
+            "checklist":checklist,
+            "issues_found": issues_found
         })
     return inspections
 
@@ -169,7 +229,7 @@ drivers = []
 vehicles = []
 
 for i in range(NUM_COMPANIES):
-    company_id = f"company_{random.randint(100,999)}"
+    company_id = f"company_{random.randint(100,9999)}"
     start_driver_index = i * NUM_DRIVERS_PER_COMPANY
     start_vehicle_index = i * NUM_VEHICLES_PER_COMPANY
 

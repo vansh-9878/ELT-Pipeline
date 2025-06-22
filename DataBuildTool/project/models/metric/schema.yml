@@ -1,0 +1,17 @@
+version: 2
+
+models:
+  - name: active_driver_count
+    description: "Count of drivers associated with each company"
+
+  - name: checklist_failures
+    description: "Number of failed inspection checklist items per vehicle"
+
+  - name: fleet_capacity_by_company
+    description: "Total package capacity across all vehicles per company"
+
+  - name: route_stop_counts
+    description: "Total number of stops per route"
+
+  - name: vehicle_maintenance_cost
+    description: "Total maintenance cost per vehicle"

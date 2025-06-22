@@ -9,11 +9,11 @@ load_dotenv()
 conn = psycopg2.connect(os.getenv("POSTGRES_URL"))
 cursor = conn.cursor()
 
-# cursor.execute("SELECT * FROM delivery_attempts")
-# records = cursor.fetchall()
-# print(records)
+cursor.execute("SELECT vehicle_id,status FROM inspection_checklist where vehicle_id='veh_1002'")
+records = cursor.fetchall()
+print(records)
 
-cursor.execute("DROP TABLE synthetic_data_airbyte_tmp CASCADE")
+# cursor.execute("DROP TABLE synthetic_data_airbyte_tmp CASCADE")
 
 conn.commit()
 print("✅ All data successfully migrated to PostgreSQL!")

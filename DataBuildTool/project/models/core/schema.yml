@@ -1,0 +1,11 @@
+version: 2
+
+models:
+  - name: dim_driver_schedule
+    description: "Daily driver schedules for the next 3 weeks based on driver weekly shifts"
+
+  - name: fct_inspection_summary
+    description: "Summary of inspection checklist results per vehicle and inspection date"
+
+  - name: fct_route_performance
+    description: "Detailed record of delivery attempts with associated exceptions"
