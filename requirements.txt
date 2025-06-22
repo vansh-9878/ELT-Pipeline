@@ -1,0 +1,10 @@
+dotenv
+keras
+tensorflow
+sentence_transformers
+pinecone 
+google
+psycopg2
+faker
+pymongo
+dbt-postgres

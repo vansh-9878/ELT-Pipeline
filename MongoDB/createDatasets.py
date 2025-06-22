@@ -220,34 +220,32 @@ def generate_inspections(vehicle_ids, count):
         })
     return inspections
 
-# Step 1: Generate shared zones and stops
-zones = generate_zones(NUM_ZONES)
-stops = generate_stops(NUM_STOPS)
+def createNewRecords():
+    zones = generate_zones(NUM_ZONES)
+    stops = generate_stops(NUM_STOPS)
 
-# Step 2: Per-company generation
-logistics_companies = []
-drivers = []
-vehicles = []
+    logistics_companies = []
+    drivers = []
+    vehicles = []
 
-for i in range(NUM_COMPANIES):
-    company_id = f"company_{random.randint(100,9999)}"
-    start_driver_index = i * NUM_DRIVERS_PER_COMPANY
-    start_vehicle_index = i * NUM_VEHICLES_PER_COMPANY
+    for i in range(NUM_COMPANIES):
+        company_id = f"company_{random.randint(100,9999)}"
+        start_driver_index = i * NUM_DRIVERS_PER_COMPANY
+        start_vehicle_index = i * NUM_VEHICLES_PER_COMPANY
 
-    # Generate drivers and vehicles for this company
-    company_drivers = generate_drivers(company_id, NUM_DRIVERS_PER_COMPANY, start_driver_index)
-    company_vehicles = generate_vehicles(
+        company_drivers = generate_drivers(company_id, NUM_DRIVERS_PER_COMPANY, start_driver_index)
+        company_vehicles = generate_vehicles(
         company_id,
         [d["_id"] for d in company_drivers],
         [s["_id"] for s in stops],
         start_vehicle_index
     )
 
-    drivers.extend(company_drivers)
-    vehicles.extend(company_vehicles)
+        drivers.extend(company_drivers)
+        vehicles.extend(company_vehicles)
 
     # Create the company object
-    logistics_companies.append({
+        logistics_companies.append({
         "_id": company_id,
         "name": fake.company(),
         "region": fake.state(),
@@ -255,15 +253,13 @@ for i in range(NUM_COMPANIES):
         "drivers": [d["_id"] for d in company_drivers],
         "active_zones": random.sample([z["_id"] for z in zones], k=2)
     })
-    print("Generated vehicles with company_id:")
-    for v in vehicles:
-        print(v["_id"], "->", v["company_id"])
+        print("Generated vehicles with company_id:")
+        for v in vehicles:
+            print(v["_id"], "->", v["company_id"])
 
-# Step 3: Generate inspections across all vehicles
-inspections = generate_inspections([v["_id"] for v in vehicles], NUM_INSPECTIONS)
+    inspections = generate_inspections([v["_id"] for v in vehicles], NUM_INSPECTIONS)
 
-# Step 4: Save to JSON files
-json_outputs = {
+    json_outputs = {
     "drivers.json": drivers,
     "zones.json": zones,
     "stops.json": stops,
@@ -272,8 +268,9 @@ json_outputs = {
     "logistics_companies.json": logistics_companies
 }
 
-for filename, content in json_outputs.items():
-    with open(output_dir / filename, 'w') as f:
-        json.dump(content, f, indent=2)
+    for filename, content in json_outputs.items():
+        with open(output_dir / filename, 'w') as f:
+            json.dump(content, f, indent=2)
 
-print(f"✅ Synthetic data generated in: {output_dir.resolve()}")
+    print(f"✅ Synthetic data generated in: {output_dir.resolve()}")
+
