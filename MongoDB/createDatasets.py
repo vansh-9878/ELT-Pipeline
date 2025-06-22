@@ -111,6 +111,7 @@ def generate_stops(count):
     stops = []
     for i in range(count):
         stop_id = f"stop_{i+1}"
+        rand=random.random()
         stops.append({
             "_id": stop_id,
             "package_id": f"pkg_{200+i}",
@@ -122,10 +123,10 @@ def generate_stops(count):
                 "attempts": [
                     {
                         "ts": fake.date_time_this_year().isoformat(),
-                        "status": "Delivered" if random.random() > 0.4 else "Exception",
+                        "status": "Delivered" if rand > 0.4 else "Exception",
                         "exception":  {
-                            "code": None if random.random() > 0.4 else "NO_ACCESS",
-                            "reason": None if random.random() > 0.4 else "Gate locked"
+                            "code": None if rand > 0.4 else "NO_ACCESS",
+                            "reason": None if rand > 0.4 else "Gate locked"
                         }
                     }
                 ]

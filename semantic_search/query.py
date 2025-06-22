@@ -1,4 +1,3 @@
-
 from sentence_transformers import SentenceTransformer
 from pinecone import Pinecone
 import psycopg2
@@ -16,8 +15,8 @@ pc = Pinecone(api_key=os.getenv("PINECONE_API"))
 model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
 
 
-# user_query = "Which drivers failed inspections last week?"
-user_query = "Get the average number of delivery attempts per stop for a company id company_102"
+user_query = "Which drivers failed inspections last week?"
+# user_query = "Get the average number of delivery attempts per stop for a company id company_1246"
 
 
 def is_dynamic_sql(sql_text):
@@ -45,22 +44,26 @@ def fill_dynamic_sql(sql_template, user_query):
 query_embedding = model.encode(user_query).tolist()
 index = pc.Index("sql-retrieval")
 res = index.query(vector=query_embedding, top_k=3, include_metadata=True)
+print(res)
+try:
+    nlp=res['matches'][0]['metadata']['nlp']
+    sql=res['matches'][0]['metadata']['sql']
 
-nlp=res['matches'][0]['metadata']['nlp']
-sql=res['matches'][0]['metadata']['sql']
+    print(sql)
+    if is_dynamic_sql(sql):
+        result=fill_dynamic_sql(sql,user_query)
+        result=result.replace("```sql","")
+        result=result.replace("```","")
+    else:
+        result=sql
+        
 
-print(sql)
-if is_dynamic_sql(sql):
-    result=fill_dynamic_sql(sql,user_query)
-    result=result.replace("```sql","")
-    result=result.replace("```","")
-else:
-    result=sql
-    
-print(result)
+    cursor.execute(result)
+    rows = cursor.fetchall()
+    print("-"*100)
+    for row in rows:
+        print(row)
+except Exception as e:
+    print("Could not find query")
+    print(e)
 
-cursor.execute(result)
-rows = cursor.fetchall()
-print("-"*100)
-for row in rows:
-    print(row)

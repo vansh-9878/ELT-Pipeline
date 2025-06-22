@@ -5,7 +5,7 @@ from pymongo.errors import DuplicateKeyError
 client = MongoClient(os.getenv("MONGO_URI"))
 db = client["chatbot"]
 collection = db["synthetic_data"]
-
+collection.delete_many({})
 with open("merged_logistics.json", "r", encoding="utf-8") as f:
     data = json.load(f)
 
