@@ -253,9 +253,9 @@ def createNewRecords():
         "drivers": [d["_id"] for d in company_drivers],
         "active_zones": random.sample([z["_id"] for z in zones], k=2)
     })
-        print("Generated vehicles with company_id:")
-        for v in vehicles:
-            print(v["_id"], "->", v["company_id"])
+        # print("Generated vehicles with company_id:")
+        # for v in vehicles:
+        #     print(v["_id"], "->", v["company_id"])
 
     inspections = generate_inspections([v["_id"] for v in vehicles], NUM_INSPECTIONS)
 

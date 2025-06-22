@@ -47,7 +47,7 @@ def wait_for_sync():
     # return response.text["jobId"]
 
 def run_dbt():
-    subprocess.run(["dbt", "run"], cwd="./chatbotproject", check=True)
+    subprocess.run(["dbt", "run"], cwd="./chatbotProject", check=True)
 
 def main():
     print("Generating synthetic data...")
