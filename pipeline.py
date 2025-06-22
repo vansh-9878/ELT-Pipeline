@@ -18,7 +18,7 @@ def get_access_token():
     response.raise_for_status()
     return response.json()["access_token"]
 AIRBYTE_API_KEY=get_access_token()
-print(AIRBYTE_API_KEY)
+# print(AIRBYTE_API_KEY)
 
 def trigger_airbyte_sync():
     # headers = {"Authorization": f"Bearer {AIRBYTE_API_KEY}"}
@@ -31,7 +31,7 @@ def trigger_airbyte_sync():
 
     response = requests.get(url, headers=headers)
 
-    print(response.text)
+    # print(response.text)
 
 def wait_for_sync():
     url = "https://api.airbyte.com/v1/jobs"
