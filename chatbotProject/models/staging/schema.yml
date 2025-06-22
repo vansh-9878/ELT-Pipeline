@@ -1,0 +1,32 @@
+version: 2
+
+sources:
+  - name: public
+    schema: public
+    tables:
+      - name: synthetic_data
+
+models:
+  - name: attempts
+    description: "Flattened delivery attempts with status and exceptions per stop and package"
+
+  - name: drivers
+    description: "Driver profiles with license class and expiry"
+
+  - name: inspection_checklist
+    description: "Exploded inspection checklist items for each vehicle inspection"
+
+  - name: logistic_companies
+    description: "Company base metadata"
+
+  - name: stops
+    description: "Details of all the stops including arrival and delivery timestamps"
+
+  - name: vehicle_maintenance_tasks
+    description: "Details of maintenance tasks performed on vehicles"
+
+  - name: vehicles
+    description: "Fleet vehicle metadata with type and package capacity"
+
+  - name: zones
+    description: "Geographic zones of activity for companies with boundary points"
