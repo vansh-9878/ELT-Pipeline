@@ -83,4 +83,4 @@ def searchDatabase(user_query):
 # user_query = "Which drivers failed inspections last week?"
 user_query = "get me number of failed deliveries in the past week for company company_1246"
 
-searchDatabase(user_query)
+# searchDatabase(user_query)

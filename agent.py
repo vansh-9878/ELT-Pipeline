@@ -67,9 +67,10 @@ app=graph.compile()
 
 def getAgent(inputs):
     results=app.invoke(inputs)
-    print("-"*100)
-    print(results["messages"])
+    # print("-"*100)
+    # print(results["messages"])
+    return results
     
 # inputs={"messages" : [HumanMessage(content="Get the average number of delivery attempts per stop for a company id company_1246")]}
 inputs={"messages" : [HumanMessage(content="give me all the vehicles with company id company_1246")]}
-getAgent(inputs)
+# getAgent(inputs)
