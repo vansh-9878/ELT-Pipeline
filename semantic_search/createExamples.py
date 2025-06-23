@@ -15,11 +15,11 @@ model = genai.GenerativeModel('gemini-1.5-pro')
 embedder = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
 
 pc = Pinecone(api_key=os.getenv("PINECONE_API"))
-index = pc.Index("sql-retrieval")
+index = pc.Index("sql-retrieval2")
 
 # 4. Parse .sql files and enrich
 # sql_files = glob.glob("./DataBuildTool/project/models/**/*.sql", recursive=True) 
-files=glob.glob("./DataBuildTool/project/models/core/*.sql", recursive=True) 
+files=glob.glob("./DataBuildTool/project/models/metric/*.sql", recursive=True) 
 count=0
 for path in files:
     print(path)
@@ -71,28 +71,28 @@ for path in files:
                     "sql": "The dynamic SQL query using the dbt model table."
                 },
                 ...
-            ]"""+path.split("core")[1]+raw_sql)
+            ]"""+path.split("metric")[1]+raw_sql)
         
         print("wow")
         json_str=result.text.split("```")[1].split("json")[1].strip()
         query_list = json.loads(json_str)
-        print(query_list)
+        # print(query_list)
         
-        # for query in query_list:
-        #     try:
-        #         embedding = embedder.encode(query['nlp']).tolist()  # or use 'sql' if you prefer
-        #         index.upsert([
-        #             (
-        #                 str(uuid.uuid4()),         # unique ID
-        #                 embedding,                 # vector values
-        #                 {                          # optional metadata
-        #                     "nlp": query['nlp'],
-        #                     "sql": query['sql']
-        #                 }
-        #             )
-        #         ])
-        #     except Exception as e:
-        #         print("Embedding/Upsert error:", e)
+        for query in query_list:
+            try:
+                embedding = embedder.encode(query['nlp']).tolist()  # or use 'sql' if you prefer
+                index.upsert([
+                    (
+                        str(uuid.uuid4()),         # unique ID
+                        embedding,                 # vector values
+                        {                          # optional metadata
+                            "nlp": query['nlp'],
+                            "sql": query['sql']
+                        }
+                    )
+                ])
+            except Exception as e:
+                print("Embedding/Upsert error:", e)
 
         print("donee")
         # print(f"✅ Enriched & inserted: {path}")

@@ -10,7 +10,7 @@ model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
 
 pc = Pinecone(api_key=os.getenv("PINECONE_API"))
 
-index_name = 'sql-retrieval'
+index_name = 'sql-retrieval2'
 
 if index_name not in pc.list_indexes().names():
     pc.create_index(
@@ -30,7 +30,7 @@ with open('nl_sql_pairs.json') as f:
     examples = json.load(f)
 
 for ex in examples:
-    embedding = model.encode(ex['nl']).tolist()
-    index.upsert([(str(uuid.uuid4()), embedding, {'nl': ex['nl'], 'sql': ex['sql']})])
+    embedding = model.encode(ex['nlp']).tolist()
+    index.upsert([(str(uuid.uuid4()), embedding, {'nlp': ex['nlp'], 'sql': ex['sql']})])
 
 print("examples have been inserted..")

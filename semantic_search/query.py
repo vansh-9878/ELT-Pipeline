@@ -15,8 +15,6 @@ pc = Pinecone(api_key=os.getenv("PINECONE_API"))
 model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
 
 
-# user_query = "Which drivers failed inspections last week?"
-user_query = "Get the average number of delivery attempts per stop for a company id company_1246"
 
 
 def is_dynamic_sql(sql_text):
@@ -41,27 +39,48 @@ def fill_dynamic_sql(sql_template, user_query):
     return response.text.strip()
 
 
-query_embedding = model.encode(user_query).tolist()
-index = pc.Index("sql-retrieval")
-res = index.query(vector=query_embedding, top_k=3, include_metadata=True)
-try:
-    nlp=res['matches'][0]['metadata']['nlp']
-    sql=res['matches'][0]['metadata']['sql']
+def searchDatabase(user_query):
+    query_embedding = model.encode(user_query).tolist()
+    index = pc.Index("sql-retrieval2")
+    res = index.query(vector=query_embedding, top_k=3, include_metadata=True)
 
-    if is_dynamic_sql(sql):
-        result=fill_dynamic_sql(sql,user_query)
-        result=result.replace("```sql","")
-        result=result.replace("```","")
-    else:
-        result=sql
-        
+    try:
+        nlp = None
+        sql = None
+        print(res['matches'])
+        for match in res['matches']:
+            metadata = match.get('metadata', {})
+            if 'nlp' in metadata and 'sql' in metadata:
+                nlp = metadata['nlp']
+                sql = metadata['sql']
+                break
 
-    cursor.execute(result)
-    rows = cursor.fetchall()
-    print("-"*100)
-    for row in rows:
-        print(row)
-except Exception as e:
-    print("Could not find query")
-    print(e)
+        if not sql:
+            raise ValueError("No valid match with 'nlp' and 'sql' found.")
 
+        if is_dynamic_sql(sql):
+            result = fill_dynamic_sql(sql, user_query)
+            result = result.replace("```sql", "").replace("```", "")
+        else:
+            result = sql
+
+        cursor.execute(result)
+        rows = cursor.fetchall()
+        column_names = [desc[0] for desc in cursor.description]
+
+# Combine each row with column names
+        results_with_headers = [dict(zip(column_names, row)) for row in rows]
+        # for row in rows:
+        #     print(row)
+        return results_with_headers
+
+    except Exception as e:
+        print("Could not find query")
+        print(e)
+        return []
+
+
+# user_query = "Which drivers failed inspections last week?"
+user_query = "get me number of failed deliveries in the past week for company company_1246"
+
+searchDatabase(user_query)
