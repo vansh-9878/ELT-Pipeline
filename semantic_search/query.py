@@ -14,7 +14,7 @@ cursor = conn.cursor()
 pc = Pinecone(api_key=os.getenv("PINECONE_API"))
 model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
 
-
+conn.autocommit=True
 
 
 def is_dynamic_sql(sql_text):
@@ -34,6 +34,9 @@ def fill_dynamic_sql(sql_template, user_query):
     {sql_template}
 
     Replace any placeholders (like {{ target_date }}) with appropriate values based on the user's request.
+    examples : 
+        - companyId : company_1246
+        - vehicleId : veh_1280
     Return only the final SQL query.
     """)
     return response.text.strip()
@@ -82,5 +85,6 @@ def searchDatabase(user_query):
 
 # user_query = "Which drivers failed inspections last week?"
 user_query = "get me number of failed deliveries in the past week for company company_1246"
+user_query = "Shows the earliest and latest route start dates for each company."
 
 # searchDatabase(user_query)

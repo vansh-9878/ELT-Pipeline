@@ -3,7 +3,7 @@ import glob
 import json
 import uuid
 from sentence_transformers import SentenceTransformer
-from pinecone import Pinecone, ServerlessSpec
+from pinecone import Pinecone
 import google.generativeai as genai
 from dotenv import load_dotenv
 
@@ -17,7 +17,6 @@ embedder = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
 pc = Pinecone(api_key=os.getenv("PINECONE_API"))
 index = pc.Index("sql-retrieval2")
 
-# 4. Parse .sql files and enrich
 # sql_files = glob.glob("./DataBuildTool/project/models/**/*.sql", recursive=True) 
 files=glob.glob("./DataBuildTool/project/models/metric/*.sql", recursive=True) 
 count=0

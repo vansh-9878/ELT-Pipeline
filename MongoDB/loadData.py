@@ -20,7 +20,7 @@ def insert():
         except DuplicateKeyError:
             skipped_count += 1
         except Exception as e:
-            print("❌ Unexpected error:", e)
+            print("Unexpected error:", e)
 
-    print(f"✅ Inserted {inserted_count} documents.")
-    print(f"⚠️ Skipped {skipped_count} documents due to duplicate _id.")
+    print(f"Inserted {inserted_count} documents.")
+    print(f"Skipped {skipped_count} documents due to duplicate _id.")

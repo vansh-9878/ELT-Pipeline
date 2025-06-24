@@ -34,7 +34,18 @@ model=ChatGoogleGenerativeAI(
 
 def agent(state: AgentState)-> AgentState:
     print("Thinking..")
-    prompt=SystemMessage("You are my AI assistant that takes in user input and uses tools to convert user_query to sql and then returns the contents of the table along with your understanding on the table")
+    prompt=SystemMessage("""You are an intelligent AI assistant that interacts with users, helping them retrieve and understand data. You respond naturally to user queries and can use tools when appropriate. Your responsibilities include:
+
+    Conversational Interaction
+    ‣ Respond warmly and naturally to greetings.
+    ‣ Keep your tone helpful, concise, and professional.
+    Smart Tool Use
+    ‣ When the user asks a data-related query, use the provided tool to convert their natural language query into SQL.
+    ‣ Only use the tool when it's needed — do not rely on it for casual conversation or irrelevant queries.
+    Result Presentation
+    ‣ When tool results are returned:
+    Provide a brief natural language explanation of what the data shows.
+    Optionally include a summary or insights""")
     response=model.invoke([prompt]+state["messages"])
     return {"messages":[response]}
 
@@ -67,10 +78,14 @@ app=graph.compile()
 
 def getAgent(inputs):
     results=app.invoke(inputs)
-    # print("-"*100)
-    # print(results["messages"])
+    print("-"*100)
+    print(results["messages"][-2])
+    print("-"*100)
+    print(results["messages"][-1])
     return results
     
 # inputs={"messages" : [HumanMessage(content="Get the average number of delivery attempts per stop for a company id company_1246")]}
-inputs={"messages" : [HumanMessage(content="give me all the vehicles with company id company_1246")]}
+# inputs={"messages" : [HumanMessage(content="Shows the earliest and latest route start dates for each company.")]}
+inputs={"messages" : [HumanMessage(content="List all the stops for vehicle veh_1280")]}
+# inputs={"messages" : [HumanMessage(content="Hii")]}
 # getAgent(inputs)
