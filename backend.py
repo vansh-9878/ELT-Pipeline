@@ -5,8 +5,6 @@ from langchain_core.messages import HumanMessage,ToolMessage
 from agent import getAgent
 from fastapi.middleware.cors import CORSMiddleware
 
-
-
 app=FastAPI()
 
 app.add_middleware(
