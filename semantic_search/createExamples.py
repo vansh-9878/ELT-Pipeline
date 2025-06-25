@@ -79,12 +79,12 @@ for path in files:
         
         for query in query_list:
             try:
-                embedding = embedder.encode(query['nlp']).tolist()  # or use 'sql' if you prefer
+                embedding = embedder.encode(query['nlp']).tolist()  
                 index.upsert([
                     (
-                        str(uuid.uuid4()),         # unique ID
-                        embedding,                 # vector values
-                        {                          # optional metadata
+                        str(uuid.uuid4()),         
+                        embedding,                 
+                        {                          
                             "nlp": query['nlp'],
                             "sql": query['sql']
                         }

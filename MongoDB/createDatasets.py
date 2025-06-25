@@ -43,7 +43,6 @@ item_definitions = {
     ]
 }
 
-# Notes for pass/fail
 pass_notes = {
     "Brakes": "Brakes working normally, no issues found",
     "Lights": "All lights functional",
@@ -66,7 +65,7 @@ fail_notes = {
 def generate_drivers(company_id, count, start_index=0):
     drivers = []
     for i in range(start_index, start_index + count):
-        driver_id = f"drv_{5000 + i}"
+        driver_id = f"drv_{5000 + random.randint(100,999)}"
         drivers.append({
             "_id": driver_id,
             "name": fake.name(),

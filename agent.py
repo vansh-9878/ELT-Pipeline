@@ -56,7 +56,10 @@ def agent(state: AgentState)-> AgentState:
     Result Presentation
     ‣ When tool results are returned:
     Provide a brief natural language explanation of what the data shows.
-    Optionally include a summary or insights""")
+    Optionally include a summary or insights
+    ‣ read full conversational history to decide whether to use it or use a tool
+    """)
+    
     response=model.invoke([prompt]+state["messages"])
     return {"messages":[response]}
 

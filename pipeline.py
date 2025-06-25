@@ -18,7 +18,6 @@ def get_access_token():
     response.raise_for_status()
     return response.json()["access_token"]
 AIRBYTE_API_KEY=get_access_token()
-# print(AIRBYTE_API_KEY)
 
 def trigger_airbyte_sync():
     # headers = {"Authorization": f"Bearer {AIRBYTE_API_KEY}"}
@@ -57,9 +56,6 @@ def main():
     trigger_airbyte_sync()
     wait_for_sync()
     time.sleep(120)
-    # if status != "succeeded":
-    #     raise Exception(f"Airbyte sync failed: {status}")
-
     print("Running dbt...")
     run_dbt()
 

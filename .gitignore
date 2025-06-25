@@ -5,3 +5,4 @@ amazon_dsp_driver_dataset_200_multiweek 1.json
 merged_logistics.json
 /__pycache__
 semantic_search/__pycache__
+conversion.json
