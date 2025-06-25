@@ -6,6 +6,7 @@ from langchain_core.tools import tool
 from langgraph.prebuilt import ToolNode
 from langgraph.graph.message import add_messages
 from semantic_search.query import searchDatabase
+from semantic_search.addRecord import newRecord as record
 import os
 from dotenv import load_dotenv
 load_dotenv()
@@ -23,7 +24,17 @@ def NLPtoSQL(user_query:str):
     rows=searchDatabase(user_query)
     return rows
 
-tools=[NLPtoSQL]
+@tool
+def newRecord(vehicle_id:str, address:str, date_str:str):
+    """
+        this tool is used to assign , schedule or add new record in the database
+        date_str should be of the form YYYY-MM-DD
+    """
+    print(date_str)
+    record(vehicle_id,address,date_str)
+    return [{"vehicle_id":vehicle_id,"status":"New stop added successfully"}]
+
+tools=[NLPtoSQL,newRecord]
 
 model=ChatGoogleGenerativeAI(
     model="gemini-1.5-pro",
@@ -86,6 +97,6 @@ def getAgent(inputs):
     
 # inputs={"messages" : [HumanMessage(content="Get the average number of delivery attempts per stop for a company id company_1246")]}
 # inputs={"messages" : [HumanMessage(content="Shows the earliest and latest route start dates for each company.")]}
-inputs={"messages" : [HumanMessage(content="List all the stops for vehicle veh_1280")]}
+inputs={"messages" : [HumanMessage(content="Schedule veh_1000 on 25th june 2025 at 28148 Jacob Curve, Patrickton, MI 08182")]}
 # inputs={"messages" : [HumanMessage(content="Hii")]}
 # getAgent(inputs)

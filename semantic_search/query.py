@@ -73,8 +73,8 @@ def searchDatabase(user_query):
 
 # Combine each row with column names
         results_with_headers = [dict(zip(column_names, row)) for row in rows]
-        # for row in rows:
-        #     print(row)
+        for row in rows:
+            print(row)
         return results_with_headers
 
     except Exception as e:
@@ -84,7 +84,9 @@ def searchDatabase(user_query):
 
 
 # user_query = "Which drivers failed inspections last week?"
-user_query = "get me number of failed deliveries in the past week for company company_1246"
-user_query = "Shows the earliest and latest route start dates for each company."
+# user_query = "get me number of failed deliveries in the past week for company company_1246"
+# user_query = "Shows the earliest and latest route start dates for each company."
+user_query = "Number of stops of vehicle veh_1415"
+
 
 # searchDatabase(user_query)
